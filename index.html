@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrolling Blur Webpage</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            background: #222;
+        }
+        .top-section {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+        .top-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.3s ease;
+        }
+        .bottom-section {
+            padding: 80px 60px;
+            background: #222;
+            min-height: 95vh;
+        }
+        .img-top-left {
+            float: left;
+            width: 750px;
+            margin: 0 30px 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        }
+        .img-bottom-right {
+            float: right;
+            width: 750px;
+            margin: 20px 0 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        }
+        .bottom-text {
+            font-size: 1.25rem;
+            line-height: 1.7rem;
+            color: #eee;
+        }
+        a {
+            color: #acacac;
+        }
+        h1, h2 {
+            color: rgb(243, 0, 0);
+        }
+        .title-right {
+        position: absolute;
+        top: 35%;
+        right: 350px;
+        transform: rotate(4deg);
+        font-size: 4rem;
+        font-weight: 900;
+        color: white;
+        text-shadow: 
+            3px 3px 0 #000000,
+            -3px -3px 0 #000000,
+            3px -3px 0 #000000,
+            -3px 3px 0 #000000;
+        font-family: Impact, Arial Black, sans-serif;
+        letter-spacing: 2px;
+        z-index: 10;
+        user-select: none;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div class="top-section">
+    <img id="main" src="Assets/main.jpg" alt="Top Image">
+    <div class="title-right">Persona 5: The Website</div>
+</div>
+<div class="bottom-section">
+    <img class="img-top-left" src="Assets/topLeft.jpg" alt="Image 1">
+    
+    <div class="bottom-text">
+        <h1>What is Persona?</h1>
+        <p>
+            Persona is a game series developed by Atlus. It is a spin-off of the Shin Megami Tensei series, focusing on a group of high school students who awaken to their "Persona" powers and must battle supernatural forces while navigating everyday life. The series is known for its unique blend of traditional JRPG mechanics, social simulation elements, and psychological themes.
+        </p>
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <img class="img-bottom-right" src="Assets/bottomLeft.jpg" alt="Image 2">
+        <h1>Persona 5</h1>
+        <p>
+            Persona 5 is simply one of these titles and is the main focus of this website. Below are some links to different pages that explore various aspects of Persona 5, from its history and story to its gameplay mechanics and artistic design.
+        </p>
+    </div>
+
+
+</div>
+
+<script>
+    const main = document.getElementById("main");
+
+    window.addEventListener("scroll", () => {
+        const scrollY = window.scrollY;
+        const maxBlur = 10;
+        const blurValue = Math.min(scrollY / 40, maxBlur);
+        main.style.filter = `blur(${blurValue}px)`;
+    });
+</script>
+
+<br><br><br><br>
+
+<div style= "text-align : center; color : white;"> 
+    <h2>Continue to the next pages to explore more about Persona 5</h2>
+    <a href="2-history.html">History</a>
+    <a> | </a>
+    <a href="3-story.html">Story</a>
+    <a> | </a>
+    <a href="4-theming.html">Theming</a>
+    <a> | </a>
+    <a href="5-characters.html">Characters</a>
+    <a> | </a>
+    <a href="6-gameplay.html">Gameplay</a>
+    <a> | </a>
+    <a href="7-combat.html">Combat</a>
+    <a> | </a>
+    <a href="8-ui.html">Ui</a>
+    <a> | </a>
+    <a href="9-music.html">Music</a>
+    <a> | </a>
+    <a href="10-voiceActing.html">Voice Acting</a>
+</div> 
+<br><br>
+
+</body>
+
+</html>
