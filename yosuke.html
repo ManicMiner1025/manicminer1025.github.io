@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yosuke Shrine — Persona 4</title>
+  <style>
+    /* Reset + base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; }
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at 10% 10%, #1b2340 0%, #0f0b2b 40%, #0b0014 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      overflow: hidden;
+    }
+
+    /* Floating colorful bokeh blobs */
+    .blob {
+      position: absolute;
+      filter: blur(40px);
+      opacity: .55;
+      mix-blend-mode: screen;
+      animation: float 8s ease-in-out infinite;
+      border-radius: 50%;
+      transform: translate3d(0,0,0);
+    }
+    .blob.a{ width:420px;height:420px; background: linear-gradient(45deg,#ff3cac,#784ba0); left:-10%; top:-10%; animation-duration:12s }
+    .blob.b{ width:320px;height:320px; background: linear-gradient(45deg,#00f5a0,#00a3ff); right:-10%; bottom:-5%; animation-duration:10s }
+    .blob.c{ width:260px;height:260px; background: linear-gradient(45deg,#ff9a3c,#ffd43c); left:10%; bottom:5%; animation-duration:14s }
+    @keyframes float { 0%{transform: translateY(0) scale(1)}50%{transform: translateY(-30px) scale(1.03)}100%{transform: translateY(0) scale(1)} }
+
+    /* Shrine container */
+    .shrine {
+      position: relative;
+      width: min(880px, 92vw);
+      height: min(720px, 80vh);
+      border-radius: 22px;
+      padding: 28px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 10px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      overflow: hidden;
+    }
+
+    header.title {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding-bottom:6px;
+    }
+    .title h1{
+      font-size: clamp(20px, 3.5vw, 36px);
+      letter-spacing: 1px;
+      margin-left: 8px;
+      background: linear-gradient(90deg,#ffd1ff,#ffc6a8,#a8f0ff,#bfe3a8);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      font-weight: 700;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.6);
+    }
+
+    /* central area */
+    .center {
+      display:flex; align-items:center; justify-content:center; position:relative;
+    }
+
+    /* GIF holder */
+    .gif-wrap {
+      width: min(420px, 56vw);
+      height: min(420px, 56vw);
+      min-width: 260px;
+      min-height: 260px;
+      border-radius: 999px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 2px solid rgba(255,255,255,0.05);
+      box-shadow: 0 15px 60px rgba(0,0,0,0.55), 0 0 60px rgba(255,255,255,0.02) inset;
+      position: relative;
+      z-index: 10;
+      overflow: visible;
+    }
+
+    .gif-wrap img {
+      width: 78%; height: 78%; object-fit: cover;
+      border-radius: 14px; display:block; 
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+
+    /* glowing ring behind the GIF */
+    .glow-ring {
+      position:absolute; inset: -18px; z-index: 7; border-radius: 50%;
+      background: conic-gradient(from 90deg, #ff3cac, #784ba0, #00a3ff, #00f5a0, #ffd43c, #ff3cac);
+      filter: blur(18px); opacity: .75; transform: scale(1.06);
+      animation: ring-rotate 12s linear infinite;
+    }
+    @keyframes ring-rotate { to { transform: rotate(360deg) scale(1.06); } }
+
+    /* Spinning text -- colorful and neon */
+    .spin-text-wrap {
+      position:absolute; z-index: 20; pointer-events:none; inset: 0; display:flex; align-items:center; justify-content:center;
+    }
+    .spin-text {
+      transform-origin: center center;
+      animation: spin 12s linear infinite;
+      font-weight: 800; font-size: 22px; letter-spacing: 6px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg,#ffd1ff,#ffc6a8,#a8f0ff,#bfe3a8);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+      white-space: nowrap;
+    }
+    @keyframes spin { from{ transform: rotate(0deg) translateY(-180px) rotate(0deg); } to{ transform: rotate(360deg) translateY(-180px) rotate(-360deg); } }
+
+    /* subtitle */
+    footer.note { display:flex; justify-content:center; gap:12px; align-items:center; padding-top:10px; font-size:14px; opacity:.9 }
+
+    /* neon buttons */
+    .cta { display:flex; gap:10px }
+    .cta a{ padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:700; color:#060312; background:linear-gradient(90deg,#ffd1ff,#a8f0ff); box-shadow:0 10px 30px rgba(0,0,0,0.6); }
+
+    /* subtle vignette */
+    .vignette{ position:absolute; inset:0; pointer-events:none; background: radial-gradient(circle at 50% 40%, transparent 40%, rgba(0,0,0,0.45) 100%); z-index:30; }
+
+    /* responsive tweaks */
+    @media (max-width:600px){ .spin-text{ font-size:14px; letter-spacing:3px } }
+
+  </style>
+</head>
+<body>
+  <!-- colorful background blobs -->
+  <div class="blob a" aria-hidden="true"></div>
+  <div class="blob b" aria-hidden="true"></div>
+  <div class="blob c" aria-hidden="true"></div>
+
+  <main class="shrine" role="main" aria-label="Yosuke Shrine">
+    <header class="title">
+      <div style="display:flex; align-items:center; gap:12px">
+        <img src="https://i.imgur.com/4AiXzf8.png" alt="torii icon" style="width:46px;height:46px;border-radius:10px;opacity:.95;filter:drop-shadow(0 6px 18px rgba(0,0,0,.6))">
+        <div>
+          <h1>Yosuke Shrine</h1>
+          <div style="font-size:12px; opacity:.85">A colorful shrine for the one and only Yosuke</div>
+        </div>
+      </div>
+
+      <nav class="cta" aria-label="shrine actions">
+        <a href="#offer">Offer</a>
+        <a href="#pray">Pray</a>
+      </nav>
+    </header>
+
+    <section class="center">
+
+      <div class="gif-wrap" aria-hidden="false">
+        <div class="glow-ring" aria-hidden="true"></div>
+        <!-- Replace the URL below with your favorite looping Yosuke gif -->
+        <img src="Assets/YosukeOn.gif" alt="Yosuke looping gif">
+      </div>
+
+      <!-- spinning text orbiting the gif -->
+      <div class="spin-text-wrap" aria-hidden="true">
+        <div class="spin-text">yosuke • yosuke • yosuke • yosuke • yosuke • yosuke • yosuke</div>
+      </div>
+
+    </section>
+
+    <footer class="note">
+      <div>🌸 Offer flowers • Play the Full Moon • Embrace friendship</div>
+    </footer>
+
+    <div class="vignette" aria-hidden="true"></div>
+  </main>
+
+  <!-- small accessibility hint -->
+  <script>
+    // Quick keyboard shortcut: press 'g' to open gif in a new tab
+    document.addEventListener('keydown', (e) => {
+      if(e.key.toLowerCase()==='g'){
+        const img = document.querySelector('.gif-wrap img');
+        if(img && img.src) window.open(img.src, '_blank');
+      }
+    });
+  </script>
+</body>
+</html>
